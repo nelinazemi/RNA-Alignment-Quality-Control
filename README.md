@@ -161,4 +161,70 @@ samtools view -f 20 -c Arabidopsis_sample1_qc_Aligned.sortedByCoord.out.bam
 samtools view -f 16 -c Arabidopsis_sample1_qc_Aligned.sortedByCoord.out.bam
 ```
 
-This R script is designed to preprocess RNA-seq count data, normalize and stabilize variance, and visualize sample variability through Principal Component Analysis (PCA). It uses the DESeq2 package for normalization and transformation of raw data, which makes comparison between samples easy.
+---
+
+## Principal Component Analysis (PCA) and Normalization
+
+In bioinformatics, we often deal with **very large datasets**. PCA (Principal Component Analysis) helps reduce the data into smaller matrices for easier interpretation and visualization while preserving the dataset’s structure.
+
+When visualizing **raw counts**, genes with higher average expression naturally show higher variance. Since PCA assumes that each gene contributes equally in terms of variance, **normalization** is important.
+DESeq2 adjusts counts based on **sequencing depth** by calculating **size factors**.
+
+```r
+dds <- DESeqDataSetFromMatrix(
+  countData = raw_counts, 
+  colData = xp_design, 
+  design = ~ seed + infected + dpi
+)
+
+dds <- estimateSizeFactors(dds)
+
+dds <- estimateDispersions(
+  object = dds, 
+  fitType = "parametric", 
+  quiet = TRUE
+)
+
+sizeFactors(dds)
+
+size_factors_df <- tibble(
+  sample = names(dds$sizeFactor), 
+  correction_factor = dds$sizeFactor
+)
+```
+
+---
+
+## Performing PCA
+
+Once the mean is independent from the variance, we perform PCA on **normalized data** using `svd()`:
+
+* **U × D (scores):** Coordinates of samples in the new PCA space.
+* **V (loadings):** How much each gene contributes to each principal component and in which direction.
+
+**Explained variance** tells us how much variability each PC captures. For example:
+
+```r
+cumsum(pca_results$explained_var)[2,1]
+```
+
+If this returns `28.8%`, it means **PC1 + PC2 explain 28.8% of the variance** — "If I only look along this axis, I can still understand 28.8% of the data's story."
+
+---
+
+## Visualizing Infection Effects in PCA Space
+
+To assess whether **P. syringae infection** is reflected in PCA results:
+
+1. Merge **PCA scores** with **experimental factors** (`dpi`, infection status, etc.).
+2. Plot PC1 vs. PC2 (explaining \~28% variance) and color by experimental condition.
+
+---
+
+## Criteria for a Successful PCA
+
+* Samples from the **same condition** group together.
+* **PC1 + PC2** explain a large proportion of total variation.
+* Samples from **different conditions** are well separated by PC1 and PC2.
+
+---
