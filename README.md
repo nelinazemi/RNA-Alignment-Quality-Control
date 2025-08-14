@@ -192,9 +192,10 @@ size_factors_df <- tibble(
   correction_factor = dds$sizeFactor
 )
 ```
+![results](mean-variance-before.png)
+![results](mean-variance-after.png)
 
 ---
-
 ## Performing PCA
 
 Once the mean is independent from the variance, we perform PCA on **normalized data** using `svd()`:
@@ -209,6 +210,8 @@ cumsum(pca_results$explained_var)[2,1]
 ```
 
 If this returns `28.8%`, it means **PC1 + PC2 explain 28.8% of the variance** — "If I only look along this axis, I can still understand 28.8% of the data's story."
+
+![results](pca-results.png)
 
 ---
 
@@ -227,4 +230,7 @@ To assess whether **P. syringae infection** is reflected in PCA results:
 * **PC1 + PC2** explain a large proportion of total variation.
 * Samples from **different conditions** are well separated by PC1 and PC2.
 
+![results](PCA-score-infected.png)
+
 ---
+
