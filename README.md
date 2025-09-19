@@ -71,14 +71,15 @@ do
 done
 ```
 
-As a result, multiple `.html` files are produced in the `fastq` directory which can be viewed in the browser.
-One of the most important quality factors is **Per base sequence quality**. In the following picture, y-axis shows the quality score where x-axis represents the position in the read.
-As we can see, the majority of nucleotides have a high quality (over 28). For instance, the first box plot shows the quality of the first nucleotide base in the sequence. As the sequencing proceeds, we can witness a drop in the quality due to the following common reasons:
+As a result, multiple `.html` files are produced in the `fastq` directory which can be viewed in the browser. 
+One of the most important quality factors is **Per base sequence quality**. In the following picture, y-axis shows the quality score where x-axis represents the position in the read. For instance the first box plot is the quality of all first nucleotides across our sample. As we can see, the majority of nucleotides have a high quality (over 28). As the sequencing proceeds, we can witness a drop in the quality due to the following common reasons:
 
 * **Signal Decay**
 * **Phasing**
 
 As long as the signal decay is only related to the mentioned common issues, we're fine with our sequence and can continue.
+
+![results](results/FastQC_seq_qual.png)
 
 ---
 
@@ -233,5 +234,6 @@ To assess whether **P. syringae infection** is reflected in PCA results:
 ![results](results/PCA-score-infected.png)
 
 ---
+
 
 
