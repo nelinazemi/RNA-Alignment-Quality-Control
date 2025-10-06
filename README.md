@@ -21,10 +21,10 @@ The goal of this project is to:
 ## Biological Background
 
 There are different types of RNA in a cell:
-**mRNA** => these are messengers which carry the genetic instructions from DNA to ribosomes to make proteins.
-**rRNA** => these exist as structural components of ribosomes.
-**tRNA** => these carry amino acids.
-**Non-coding RNAs** => these include microRNAs, lncRNAs, etc., which regulate gene expression.
+* **mRNA**: these are messengers which carry the genetic instructions from DNA to ribosomes to make proteins.
+* **rRNA**: these exist as structural components of ribosomes.
+* **tRNA**: these carry amino acids.
+* **Non-coding RNAs**: these include microRNAs, lncRNAs, etc., which regulate gene expression.
 
 Note that in total RNA, **rRNA makes up 80–90%** of the RNA content while **mRNA is only 1–5%**.
 So for RNA extraction, we only capture the mRNAs! (**poly-A selection**) We either remove the rRNAs and preserve the mRNA and non-coding RNAs (ribo-minus) or use Poly(A) technique to only capture mRNA.
@@ -234,6 +234,7 @@ To assess whether **P. syringae infection** is reflected in PCA results:
 ![results](results/PCA-score-infected.png)
 
 ---
+
 
 
 
